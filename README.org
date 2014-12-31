@@ -1,21 +1,16 @@
 ** fest
-<code>fest</code>
+#+code
+fest
+
 ** Установка
-#+src_begin ruby
 # Gemfile
 gem 'fest'
-#+end_src
 или
-#+scr_begin ruby
 $ gem install fest
-#+end_src
 ** Использование
 ***** Default
-#+scr_begin ruby
 # Подключаем
 require 'fest'
 
 @fest = Fest.new
 @fest.say(text) # => Скажет text
-
-#+end_src
