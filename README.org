@@ -1,5 +1,6 @@
-** FEST
-***** Установка
+** fest
+<code>fest</code>
+** Установка
 #+src_begin ruby
 # Gemfile
 gem 'fest'
@@ -8,8 +9,8 @@ gem 'fest'
 #+scr_begin ruby
 $ gem install fest
 #+end_src
-***** Использование
-****** Default
+** Использование
+***** Default
 #+scr_begin ruby
 # Подключаем
 require 'fest'
