@@ -3,7 +3,8 @@ Gem::Specification.new do |s|
   s.version = "0.0.1"
   s.authors = ["Alexsey Ermolaev"]
   s.email = %q{afay.zangetsu@gmail.com}
-  s.homepage = %q{}
+  s.homepage = %q{https://github.com/AfsmNGhr/fest}
+  s.description = %q{Ruby wrapper for festival speech engine}
   s.summary = %q{Ruby wrapper for festival speech engine}
   s.license = 'MIT'
 
