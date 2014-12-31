@@ -1,5 +1,8 @@
 ** fest
-#+begin_src ruby fest #+end_src &mdash; Ruby-адаптер для Festival
+#+begin_src ruby
+fest
+#+end_src
+&mdash; Ruby-адаптер для Festival
 ** Установка
 #+begin_src ruby
 # Gemfile
