@@ -21,7 +21,7 @@ text = "Пример"
 # => Произнесёт "Пример"
 
 # Расширенный вариант
-params = {"lang" = "(cmu_us_slt_arctic_hts)", "volume" => 60}
+params = {"lang" => "(cmu_us_slt_arctic_hts)", "volume" => 60}
 text = "This is an example"
 @fest.say(text, params)
 # => Произнесёт "This is an example" поставив 60% громкости...
@@ -33,8 +33,16 @@ params[:volume] || 70
 params[:sound] || "alsa"
 params[:lang] || "(voice_msu_ru_nsh_clunits)"
 
-# Кастомизация
+# Склонение
+num = 2
+arr = ["Сообщение", "Сообщения", "Сообщений"]
+text = @fest.pluraform(num, arr)
+puts text
+# => "Сообщения"
+#+end_src
 
+** Кастомизация
+#+begin_src ruby
 @fest.init(params={})
 # Узнает текущую громкость... @data, @i ...
 
@@ -64,13 +72,4 @@ params[:lang] || "(voice_msu_ru_nsh_clunits)"
 @fest.delete_wav
 # Удаляет проигранный файл ...
 # Можно заменить ... или убрать...
-
-# Склонение
-num = 2
-arr = ["Сообщение", "Сообщения", "Сообщений"]
-text = @fest.pluraform(num, arr)
-puts text
-# => "Сообщения"
-
-
 #+end_src
