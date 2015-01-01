@@ -16,8 +16,8 @@ class Fest
 
   def init(params={})
     @data = params[:data] || "/tmp"
-    @current_volume = `amixer | grep -o [0-9]* | sed "5 ! d"`.to_i
-    @i = `ls -r #{@data} | grep -o [0-9]* | sed "1 ! d"`.to_i
+    @current_volume = `amixer | grep -o '[0-9]*' | sed "5 ! d"`.to_i
+    @i = `ls -r #{@data} | grep -o '[0-9]*' | sed "1 ! d"`.to_i
   end
 
   def check_light
@@ -34,9 +34,9 @@ class Fest
   end
 
   def make_wav(str, params={})
-    lang = params[:lang] || "(voice_msu_ru_nsh_clunits)"
+    lang = params[:lang] || "voice_msu_ru_nsh_clunits"
     system("echo '#{str}' | text2wave -o #{@data}/say_#{@i}.wav \
-      -eval '#{lang}' > /dev/null 2>&1")
+      -eval '(#{lang})' > /dev/null 2>&1")
   end
 
   def set_volume(params={})

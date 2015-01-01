@@ -22,7 +22,7 @@ text = "Пример"
 # => Произнесёт "Пример"
 
 # Расширенный вариант
-params = {:lang => "(cmu_us_slt_arctic_hts)", :volume => 60}
+params = {:lang => "cmu_us_slt_arctic_hts", :volume => 60}
 text = "This is an example"
 @fest.say(text, params)
 # => Произнесёт "This is an example" поставив 60% громкости...
@@ -32,7 +32,7 @@ text = "This is an example"
 params[:data] || "/tmp"
 params[:volume] || 70
 params[:sound] || "alsa"
-params[:lang] || "(voice_msu_ru_nsh_clunits)"
+params[:lang] || "voice_msu_ru_nsh_clunits"
 
 # Склонение
 num = 2
