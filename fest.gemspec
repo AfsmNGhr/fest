@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "fest"
-  s.version = "0.0.3"
+  s.version = "1.0.3"
   s.authors = ["Alexsey Ermolaev"]
   s.email = %q{afay.zangetsu@gmail.com}
   s.homepage = %q{https://github.com/AfsmNGhr/fest}
@@ -11,5 +11,6 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
 
-  s.requirements << 'Festival speech engine'
+  s.requirements = ['*nix* or OS X', 'Pulseaudio sound server',
+                    'Festival speech engine', 'xbacklight']
 end

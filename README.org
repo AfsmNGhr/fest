@@ -1,7 +1,11 @@
 ** FEST
 FEST - Ruby-адаптер, использующий [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]], для озвучки текста и скриптов...
 ** Установка
-Требуется установить [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] и нужные языки...
+Требуется:
+- *nix* or OS X ...
+- [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] и нужные языки...
+- [[https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Pulseaudio]]
+- xbacklight ([[https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][backlight]])
 #+begin_src ruby
 # Gemfile
 gem 'fest'
@@ -29,45 +33,51 @@ text = "This is an example"
 
 # Все параметры
 # params || default value
-params[:data] || "/tmp"
-params[:volume] || 70
-params[:sound] || "alsa"
-params[:lang] || "voice_msu_ru_nsh_clunits"
+params[:path] || "/tmp"
+params[:down_volume] || 7
+params[:language] || "voice_msu_ru_nsh_clunits"
 
 # Склонение
-num = 2
-arr = ["Сообщение", "Сообщения", "Сообщений"]
-text = @fest.pluraform(num, arr)
+text = @fest.pluraform(2, ["Сообщение", "Сообщения", "Сообщений"])
 puts text
 # => "Сообщения"
 #+end_src
 
 ** Кастомизация
 #+begin_src ruby
-@fest.init(params={})
-# Узнает текущую громкость... @data, @i ...
+@fest.init(params)
+# Узнает текущую громкость... @path, @index ...
+
+@fest.check_optimal_volume
+# @volume = @current_volume - @down_volume
+# Вычитает из текущей громкости @down_volume
 
 @fest.check_light # (with xbacklight)
 # Проверяет яркость не равна ли нулю... если равна выходит...
 # Можно сделать свою проверку ...
 
 @fest.check_say_wav
-# Проверяем на max @i ... если нету @i = 1 ...
+# Проверяем на max @index ... если нету @index = 1 ...
 # Требуется чтобы сообщения не затирались до проигрывания...
 
 @fest.make_wav(text)
-# Создаём wav с определённым языком ... с учётом @i...
+# Создаём wav с определённым языком ... с учётом @index...
 
-@fest.set_volume(params={})
-# Ставит оптимальную громкость с учётом звуковой системы...
+@fest.set_volume(volume)
+# Ставит громкость текущую громкость
 
 @fest.expect_if_aplay_now
 # Ожидает, если проигрывается сообщение ...
 
+@fest.turn_down_volume
+# Получает список входящих каналов @inputs
+# Понижает громкость на @down_volume ...
+
 @fest.play_wav
 # Проигрывает wav ...
 
-@fest.return_current_volume(params={})
+@fest.return_current_volume
+# Возращает громкость на каналах @inputs ...
 # Возращает громкость до проигрывания ...
 
 @fest.delete_wav
