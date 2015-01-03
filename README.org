@@ -34,7 +34,8 @@ text = "This is an example"
 # Все параметры
 # params || default value
 params[:path] || "/tmp"
-params[:down_volume] || 7
+params[:down_volume] || [20,60,4] #[min, max, step]
+params[:backlight] || nil # отменить проверку подсветки
 params[:language] || "voice_msu_ru_nsh_clunits"
 
 # Склонение
@@ -51,6 +52,9 @@ puts text
 @fest.check_optimal_volume
 # @volume = @current_volume - @down_volume
 # Вычитает из текущей громкости @down_volume
+
+@fest.optimize_min_and_max_volume(min_volume, max_volume)
+# Проверяет громкость и ставит min или max ...
 
 @fest.check_light # (with xbacklight)
 # Проверяет яркость не равна ли нулю... если равна выходит...

@@ -24,17 +24,33 @@ class Fest
 
   def check_optimal_volume
     if @params[:down_volume].nil?
-      @down_volume = 7
+      @down_volume = @current_volume / 10 * 4
       @volume = @current_volume - @down_volume
+      optimize_min_and_max_volume(20, 60)
     else
-      @down_volume = @params[:down_volume]
+      @down_volume = @current_volume / 10 * @params[:down_volume[2]]
       @volume = @current_volume - @down_volume
+      optimize_min_and_max_volume(@params[:down_volume[0]],
+                                  @params[:down_volume[1]])
     end
   end
 
+  def optimize_min_and_max_volume(min_volume, max_volume)
+    if @current_volume < min_volume
+      play_volume = min_volume
+    elsif @current_volume > max_volume
+      play_volume = max_volume
+    end
+    optimize_volume = play_volume || @current_volume
+    set_volume(optimize_volume)
+    turn_down_volume
+  end
+
   def check_light
-    light = `xbacklight`.to_i
-    exit if light == 0
+    if @params[:backlight].nil?
+      light = `xbacklight`.to_i
+      exit if light == 0
+    end
   end
 
   def check_say_wav
@@ -58,15 +74,16 @@ class Fest
   def expect_if_aplay_now
     while true
       sleep 1
-      break if `ps -el | grep aplay | wc -l`.to_i == 0
+      aplay = `ps -el | grep aplay | wc -l`.to_i
+      break if aplay == 0
     end
   end
 
   def turn_down_volume
     @inputs = `pactl list sink-inputs | grep № | grep -o '[0-9]*'`.split("\n")
-    @new_volume = @volume * 655
+    new_volume = @volume * 655
     @inputs.each do |input|
-      system("pactl set-sink-input-volume #{input} '#{@new_volume}'")
+      system("pactl set-sink-input-volume #{input} '#{new_volume}'")
     end
   end
 
