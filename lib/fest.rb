@@ -3,7 +3,7 @@
 class Fest
 
   def say(string, params={})
-    init(params={})
+    init(params)
     check_light
     @index = check_say_wav
     make_wav(string)
@@ -35,20 +35,21 @@ class Fest
   end
 
   def optimize_min_and_max_volume(min_volume, max_volume)
-    if @current_volume < min_volume
-      play_volume = min_volume
-    elsif @current_volume > max_volume
-      play_volume = max_volume
-    end
-    optimize_volume = play_volume || @current_volume
-    set_volume(optimize_volume)
+    set_volume(
+      if @current_volume > max_volume
+        max_volume
+      elsif @current_volume < min_volume
+        min_volume
+      else
+        @current_volume
+      end
+    )
     turn_down_volume
   end
 
   def check_light
     if @params[:backlight].nil?
-      light = `xbacklight`.to_i
-      exit if light == 0
+      exit if `xbacklight`.to_i == 0
     end
   end
 
@@ -61,9 +62,8 @@ class Fest
   end
 
   def make_wav(string)
-    language = @params[:language] || "voice_msu_ru_nsh_clunits"
     system("echo '#{string}' | text2wave -o #{@path}/say_#{@index}.wav \
-      -eval '(#{language})' > /dev/null 2>&1")
+      -eval '(#{@params[:language] || "voice_msu_ru_nsh_clunits"})' > /dev/null 2>&1")
   end
 
   def set_volume(volume)
@@ -73,16 +73,14 @@ class Fest
   def expect_if_aplay_now
     while true
       sleep 1
-      aplay = `ps -el | grep aplay | wc -l`.to_i
-      break if aplay == 0
+      break if `ps -el | grep aplay | wc -l`.to_i == 0
     end
   end
 
   def turn_down_volume
     @inputs = `pactl list sink-inputs | grep № | grep -o '[0-9]*'`.split("\n")
-    new_volume = @volume * 655
     @inputs.each do |input|
-      system("pactl set-sink-input-volume #{input} '#{new_volume}'")
+      system("pactl set-sink-input-volume #{input} '#{@volume * 655}'")
     end
   end
 
@@ -93,8 +91,7 @@ class Fest
   def return_current_volume
     if `ps -el | grep aplay | wc -l`.to_i == 0
       @inputs.each do |input|
-        volume = @current_volume * 655
-        system("pactl set-sink-input-volume #{input} '#{volume}'")
+        system("pactl set-sink-input-volume #{input} '#{@current_volume * 655}'")
       end
       set_volume(@current_volume)
     end
@@ -109,13 +106,13 @@ class Fest
     m = n % 10
 
     if n > 10 && n < 20
-      return array[2]
+      array[2]
     elsif m > 1 && m < 5
-      return array[1]
+      array[1]
     elsif m == 1
-      return array[0]
+      array[0]
     else
-      return array[2]
+      array[2]
     end
   end
 
