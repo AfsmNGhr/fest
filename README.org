@@ -55,6 +55,7 @@ puts text
 
 @fest.optimize_min_and_max_volume(min_volume, max_volume)
 # Проверяет громкость и ставит min или max ...
+# выполняет turn_down_volume
 
 @fest.check_light # (with xbacklight)
 # Проверяет яркость не равна ли нулю... если равна выходит...
@@ -68,13 +69,15 @@ puts text
 # Создаём wav с определённым языком ... с учётом @index...
 
 @fest.set_volume(volume)
-# Ставит громкость текущую громкость
+# Ставит громкость ...
 
 @fest.expect_if_aplay_now
 # Ожидает, если проигрывается сообщение ...
 
 @fest.turn_down_volume
 # Получает список входящих каналов @inputs
+# @down_volume = @current_volume / 10 * 4
+# @down_volume = @current_volume / 10 * @params[:down_volume[2]]
 # Понижает громкость на @down_volume ...
 
 @fest.play_wav

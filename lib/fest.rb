@@ -4,12 +4,11 @@ class Fest
 
   def say(string, params={})
     init(params={})
-    check_optimal_volume
     check_light
     @index = check_say_wav
     make_wav(string)
     expect_if_aplay_now
-    turn_down_volume
+    check_optimal_volume
     play_wav
     return_current_volume
     delete_wav
