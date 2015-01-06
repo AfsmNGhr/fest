@@ -33,12 +33,12 @@ text = "This is an example"
 # Все параметры
 # params || default value
 params[:path] || "/tmp"
-params[:down_volume] || [20,60,4] #[min, max, step]
+params[:down_volume] || [20,60,4] # [min, max, step]
 params[:backlight] || nil # отменить проверку подсветки
 params[:language] || "voice_msu_ru_nsh_clunits"
 
 # Склонение
-text = @fest.pluraform(2, ["Сообщение", "Сообщения", "Сообщений"])
+text = @fest.pluraform(2, %w(Сообщение Сообщения Сообщений))
 puts text
 # => "Сообщения"
 #+end_src
