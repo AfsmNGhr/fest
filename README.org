@@ -1,11 +1,10 @@
 ** FEST
 FEST - Ruby-адаптер, использующий [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]], для озвучки текста и скриптов...
 ** Установка
-Требуется:
-- *nix* or OS X ...
-- [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] и нужные языки...
-- [[https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Pulseaudio]]
-- xbacklight ([[https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][backlight]])
+[] *nix* or OS X ...
+[] [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] и нужные языки...
+[] [[https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Pulseaudio]]
+[] xbacklight ([[https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][backlight]])
 #+begin_src ruby
 # Gemfile
 gem 'fest'
@@ -47,7 +46,8 @@ puts text
 ** Кастомизация
 #+begin_src ruby
 @fest.init(params)
-# Узнает текущую громкость... @path, @index ...
+# Узнает текущую громкость...
+# @path, @index, @min_volume, @max_volume ...
 
 @fest.check_optimal_volume
 # @volume = @current_volume - @down_volume
@@ -55,7 +55,6 @@ puts text
 
 @fest.optimize_min_and_max_volume(min_volume, max_volume)
 # Проверяет громкость и ставит min или max ...
-# выполняет turn_down_volume
 
 @fest.check_light # (with xbacklight)
 # Проверяет яркость не равна ли нулю... если равна выходит...
@@ -68,7 +67,7 @@ puts text
 @fest.make_wav(text)
 # Создаём wav с определённым языком ... с учётом @index...
 
-@fest.set_volume(volume)
+@fest.change_volume(volume)
 # Ставит громкость ...
 
 @fest.expect_if_aplay_now
@@ -76,11 +75,12 @@ puts text
 
 @fest.turn_down_volume
 # Получает список входящих каналов @inputs
+# Понижает громкость на @down_volume ...
 # @down_volume = @current_volume / 10 * 4
 # @down_volume = @current_volume / 10 * @params[:down_volume[2]]
-# Понижает громкость на @down_volume ...
 
 @fest.play_wav
+# выполняет turn_down_volume
 # Проигрывает wav ...
 
 @fest.return_current_volume
