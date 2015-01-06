@@ -36,9 +36,9 @@ class Fest
   def optimize_min_and_max_volume
     change_volume(
       if @current_volume > @max_volume
-        max_volume
+        @max_volume
       elsif @current_volume < @min_volume
-        min_volume
+        @min_volume
       else
         @current_volume
       end
