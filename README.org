@@ -1,10 +1,11 @@
 ** FEST
 FEST - Ruby-адаптер, использующий [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]], для озвучки текста и скриптов...
-** Установка
+** Требования
 - *nix* or OS X ...
 - [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] и нужные языки...
 - [[https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Pulseaudio]]
 - xbacklight ([[https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][backlight]])
+** Установка
 #+begin_src ruby
 # Gemfile
 gem 'fest'
@@ -77,7 +78,7 @@ puts text
 @fest.change_volume(volume)
 # Ставит громкость ...
 
-@fest.expect_if_aplay_now
+@fest.expect_if_paplay_now
 # Ожидает, если проигрывается сообщение ...
 
 @fest.turn_down_volume
