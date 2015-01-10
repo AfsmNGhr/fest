@@ -56,9 +56,16 @@ puts text
 @fest.optimize_min_and_max_volume(min_volume, max_volume)
 # Проверяет громкость и ставит min или max ...
 
+@fest.check_conditions
+# Проверяет условия
+# check_light и check_home_theater
+
 @fest.check_light # (with xbacklight)
 # Проверяет яркость не равна ли нулю... если равна выходит...
-# Можно сделать свою проверку ...
+
+@fest.check_home_theater
+# Проверяет наличие запущенного vlc или xbmc ...
+# Выходит если запущено...
 
 @fest.check_say_wav
 # Проверяем на max @index ... если нету @index = 1 ...
@@ -80,6 +87,7 @@ puts text
 # @down_volume = @current_volume / 10 * @params[:down_volume[2]]
 
 @fest.play_wav
+# ставит @optimize_volume
 # выполняет turn_down_volume
 # Проигрывает wav ...
 
@@ -89,4 +97,13 @@ puts text
 
 @fest.delete_wav
 # Удаляет проигранный файл ...
+#+end_src
+** Решение проблем
+***** Уровень громкости не сбрасывает после выхода
+****** vlc
+#+begin_src bash
+#!/bin/bash
+
+vlc.run --play-and-exit $*
+amixer set Master 30% > /dev/null 2>&1
 #+end_src

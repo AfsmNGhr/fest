@@ -3,10 +3,10 @@
 class Fest
   def say(string, params = {})
     init(params)
-    check_light
-    @index = check_say_wav
+    check_conditions
+    check_say_wav
     make_wav(string)
-    expect_if_aplay_now
+    expect_if_paplay_now
     check_optimal_volume
     play_wav
     return_current_volume
@@ -34,19 +34,30 @@ class Fest
   end
 
   def optimize_min_and_max_volume
-    change_volume(
-      if @current_volume > @max_volume
-        @max_volume
-      elsif @current_volume < @min_volume
-        @min_volume
-      else
-        @current_volume
-      end
+    @optimize_volume = (
+    if @current_volume > @max_volume
+      @max_volume
+    elsif @current_volume < @min_volume
+      @min_volume
+    else
+      @current_volume
+    end
     )
+  end
+
+  def check_conditions
+    check_light
+    check_home_theater
   end
 
   def check_light
     exit if @params[:backlight].nil? && `xbacklight`.to_i == 0
+  end
+
+  def check_home_theater
+    xbmc = `ps -el | grep xbmc | wc -l`.to_i
+    vlc = `ps -el | grep vlc | wc -l`.to_i
+    exit if xbmc > 0 || vlc > 0
   end
 
   def check_say_wav
@@ -63,10 +74,10 @@ class Fest
     system("amixer set Master #{volume}% > /dev/null 2>&1")
   end
 
-  def expect_if_aplay_now
+  def expect_if_paplay_now
     loop do
       sleep 1
-      break if `ps -el | grep aplay | wc -l`.to_i == 0
+      break if `ps -el | grep paplay | wc -l`.to_i == 0
     end
   end
 
@@ -78,8 +89,10 @@ class Fest
   end
 
   def play_wav
+    change_volume(@optimize_volume)
     turn_down_volume
-    system("aplay #{@path}/say_#{@index}.wav > /dev/null 2>&1")
+    system("paplay #{@path}/say_#{@index}.wav \
+      --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
   end
 
   def return_current_volume
@@ -96,8 +109,14 @@ class Fest
     n = number % 100
     m = n % 10
 
-    n > 10 && n < 20 ? array[2] :
-      m > 1 && m < 20 ? array[1] :
-        m == 1 ? array[0] : array[2]
+    if n > 10 && n < 20
+      array[2]
+    elsif m > 1 && m < 5
+      array[1]
+    elsif m == 1
+      array[0]
+    else
+      array[2]
+    end
   end
 end
