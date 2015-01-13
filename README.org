@@ -88,13 +88,11 @@ puts text
 # @down_volume = @current_volume / 10 * @params[:down_volume[2]]
 
 @fest.play_wav
-# ставит @optimize_volume
 # выполняет turn_down_volume
-# Проигрывает wav ...
+# Проигрывает wav ... c @optimize_volume
 
 @fest.return_current_volume
 # Возращает громкость на каналах @inputs ...
-# Возращает громкость до проигрывания ...
 
 @fest.delete_wav
 # Удаляет проигранный файл ...

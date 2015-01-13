@@ -89,7 +89,6 @@ class Fest
   end
 
   def play_wav
-    change_volume(@optimize_volume)
     turn_down_volume
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
