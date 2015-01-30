@@ -20,16 +20,11 @@ class Fest
     @index = `ls -r #{@path} | grep -o '[0-9]*' | sed "1 ! d"`.to_i
     @min_volume = @params[:down_volume[0]] || 20
     @max_volume = @params[:down_volume[1]] || 60
+    @step = @params[:down_volume[2]] || 4
   end
 
   def check_optimal_volume
-    if @params[:down_volume].nil?
-      @down_volume = @current_volume / 10 * 4
-      @volume = @current_volume - @down_volume
-    else
-      @down_volume = @current_volume / 10 * @params[:down_volume[2]]
-      @volume = @current_volume - @down_volume
-    end
+    @volume = @current_volume - @current_volume / 10 * @step
     optimize_min_and_max_volume
   end
 
@@ -57,7 +52,8 @@ class Fest
   def check_home_theater
     xbmc = `ps -el | grep xbmc | wc -l`.to_i
     vlc = `ps -el | grep vlc | wc -l`.to_i
-    exit if xbmc > 0 || vlc > 0
+    kodi = `ps -el | grep kodi | wc -l`.to_i
+    exit if xbmc > 0 || vlc > 0 || kodi > 0
   end
 
   def check_say_wav
@@ -84,7 +80,12 @@ class Fest
   def turn_down_volume
     @inputs = `pactl list sink-inputs | grep № | grep -o '[0-9]*'`.split("\n")
     @inputs.each do |input|
-      system("pactl set-sink-input-volume #{input} '#{@volume * 655}'")
+      volume = @current_volume
+      loop do
+        system("pactl set-sink-input-volume #{input} '#{volume * 655}'")
+        volume -= @step
+        break if volume < @volume
+      end
     end
   end
 
@@ -96,7 +97,12 @@ class Fest
 
   def return_current_volume
     @inputs.each do |input|
-      system("pactl set-sink-input-volume #{input} '#{@current_volume * 655}'")
+      volume = @volume
+      loop do
+        system("pactl set-sink-input-volume #{input} '#{volume * 655}'")
+        volume += @step
+        break if volume > @current_volume
+      end
     end
   end
 

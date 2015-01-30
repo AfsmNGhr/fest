@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "fest"
-  s.version = "1.1.8"
+  s.version = "1.1.9"
   s.authors = ["Alexsey Ermolaev"]
   s.email = %q{afay.zangetsu@gmail.com}
   s.homepage = %q{https://github.com/AfsmNGhr/fest}
