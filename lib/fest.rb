@@ -4,13 +4,10 @@ class Fest
   def say(string, params = {})
     init(params)
     check_conditions
-    check_say_wav
     make_wav(string)
     expect_if_paplay_now
     check_optimal_volume
     play_wav
-    return_current_volume
-    delete_wav
   end
 
   def init(params)
@@ -43,6 +40,7 @@ class Fest
   def check_conditions
     check_light
     check_home_theater
+    check_say_wav
   end
 
   def check_light
@@ -72,8 +70,8 @@ class Fest
 
   def expect_if_paplay_now
     loop do
-      sleep 1
       break if `ps -el | grep paplay | wc -l`.to_i == 0
+      sleep 1
     end
   end
 
@@ -93,6 +91,8 @@ class Fest
     turn_down_volume
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
+    return_current_volume
+    delete_wav
   end
 
   def return_current_volume
