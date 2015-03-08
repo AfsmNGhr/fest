@@ -1,18 +1,18 @@
-# FEST
+## FEST
 
 [![Gem Version](https://badge.fury.io/rb/fest.svg)](http://badge.fury.io/rb/fest)
 [![Build Status](https://travis-ci.org/AfsmNGhr/fest.svg)](https://travis-ci.org/AfsmNGhr/fest)
 
-Ruby wrapper use (https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[Festival] for speak of the text and scripts ...
+Ruby wrapper use [Festival](https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29) for speak of the text and scripts ...
 
-# Requirements
+## Requirements
 
 - *nix* or OS X ...
-- [https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[Festival] and necessary languages ...
-- (https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[Pulseaudio]
-- xbacklight ((https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[backlight])
+- [Festival](https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29) and necessary languages ...
+- [Pulseaudio](https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)
+- xbacklight ([backlight](https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29))
 
-# Install
+## Install
 
 ```.ruby
 # Gemfile
@@ -23,7 +23,7 @@ or
 $ gem install fest
 ```
 
-# Used
+## Used
 ### Call methods
 ```.ruby
 require 'fest'
@@ -52,7 +52,7 @@ puts text
 # => "Сообщения"
 ```
 
-# Сustomization
+## Сustomization
 
 ```.ruby
 @fest.init(params)
@@ -89,7 +89,7 @@ puts text
 # @fest.delete_wav
 ```
 
-# Issues
+## Issues
 ### Level of loudness doesn't dump after an exit
 
 ```.bash
