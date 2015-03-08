@@ -1,11 +1,10 @@
 ** FEST
-<figure>
-<img src="https://badge.fury.io/rb/fest.svg" alt="Gem version" width="127" height="20">
-<figcaption>Gem version</figcaption>
-</figure><figure>
-<img src="https://travis-ci.org/AfsmNGhr/fest.svg" alt="Build Status" width="127" height="20">
-<figcaption></figcaption>Build Status
-</figure>
+#+CAPTION: Gem Version
+#+ATTR_HTML: :alt Gem Version
+[[https://badge.fury.io/rb/fest.svg]]
+#+CAPTION: Build Status
+#+ATTR_HTML: :alt Build Status :align right
+https://travis-ci.org/AfsmNGhr/fest.svg
 Ruby wrapper use [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] for speak of the text and scripts ...
 ** Requirements
 - *nix* or OS X ...
