@@ -8,6 +8,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Ruby wrapper for festival speech engine}
   s.license = 'MIT'
 
+  s.add_development_dependency 'rake'
+
   s.files = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
 
