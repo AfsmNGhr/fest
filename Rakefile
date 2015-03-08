@@ -1,7 +1,3 @@
-require 'rubygems'
-require 'bundler'
-require 'rake'
-
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
