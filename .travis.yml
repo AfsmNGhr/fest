@@ -1,5 +1,7 @@
 language: ruby
-install: bundle install
 rvm:
   - 1.9.3
   - 2.1.4
+before_install:
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+install: bundle install
