@@ -1,28 +1,31 @@
-** FEST
-#+CAPTION: Gem Version
-#+ATTR_HTML: :alt Gem Version
-[[https://badge.fury.io/rb/fest.svg]]
-#+CAPTION: Build Status
-#+ATTR_HTML: :alt Build Status :align right
-https://travis-ci.org/AfsmNGhr/fest.svg
-Ruby wrapper use [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] for speak of the text and scripts ...
-** Requirements
+# FEST
+
+[![Gem Version](https://badge.fury.io/rb/fest.svg)](http://badge.fury.io/rb/fest)
+[![Build Status](https://travis-ci.org/AfsmNGhr/fest.svg)](https://travis-ci.org/AfsmNGhr/fest)
+
+Ruby wrapper use (https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[Festival] for speak of the text and scripts ...
+
+# Requirements
+
 - *nix* or OS X ...
-- [[https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Festival]] and necessary languages ...
-- [[https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][Pulseaudio]]
-- xbacklight ([[https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29][backlight]])
-** Install
-#+begin_src ruby
+- [https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[Festival] and necessary languages ...
+- (https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[Pulseaudio]
+- xbacklight ((https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)[backlight])
+
+# Install
+
+```.ruby
 # Gemfile
 gem 'fest'
-#+end_src
+```
 or
-#+begin_src ruby
+```.ruby
 $ gem install fest
-#+end_src
-** Used
-***** Call methods
-#+begin_src ruby
+```
+
+# Used
+### Call methods
+```.ruby
 require 'fest'
 
 @fest = Fest.new
@@ -47,10 +50,11 @@ params[:language] || "voice_msu_ru_nsh_clunits"
 text = @fest.pluraform(2, %w(Сообщение Сообщения Сообщений))
 puts text
 # => "Сообщения"
-#+end_src
+```
 
-** Сustomization
-#+begin_src ruby
+# Сustomization
+
+```.ruby
 @fest.init(params)
 # check @current_volume
 # @path, @index, @min_volume, @max_volume ...
@@ -83,12 +87,14 @@ puts text
 # play wav ... with @optimize_volume
 # @fest.return_current_volume (with @step)
 # @fest.delete_wav
-#+end_src
-** Issues
-***** Level of loudness doesn't dump after an exit
-#+begin_src bash
+```
+
+# Issues
+### Level of loudness doesn't dump after an exit
+
+```.bash
 #!/bin/bash
 
 vlc.run --play-and-exit $*
 amixer set Master 30% > /dev/null 2>&1
-#+end_src
+```
