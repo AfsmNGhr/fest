@@ -1,18 +1,20 @@
-Gem::Specification.new do |s|
-  s.name = "fest"
-  s.version = "1.1.10"
-  s.authors = ["Alexsey Ermolaev"]
-  s.email = %q{afay.zangetsu@gmail.com}
-  s.homepage = %q{https://github.com/AfsmNGhr/fest}
-  s.description = %q{Ruby wrapper for festival scripts}
-  s.summary = %q{Ruby wrapper for festival speech engine}
-  s.license = 'MIT'
+Gem::Specification.new do |gem|
+  gem.name = 'fest'
+  gem.version = '1.1.10'
+  gem.authors = 'Alexsey Ermolaev'
+  gem.email = 'afay.zangetsu@gmail.com'
+  gem.homepage = 'https://github.com/AfsmNGhr/fest'
+  gem.description = 'Ruby wrapper for festival scripts'
+  gem.summary = 'Ruby wrapper for festival speech engine'
+  gem.license = 'MIT'
 
-  s.add_development_dependency 'rake'
+  gem.add_development_dependency = %w(rake rspec)
 
-  s.files = `git ls-files`.split("\n")
-  s.require_paths = ["lib"]
+  gem.files = `git ls-files`.split("\n")
+  gem.require_paths = ['lib']
+  gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
 
-  s.requirements = ['*nix* or OS X', 'Pulseaudio sound server',
-                    'Festival speech engine', 'xbacklight']
+  gem.extra_rdoc_files = ['MIT-license.org', 'README.md']
+  gem.requirements = ['*nix* or OS X', 'Pulseaudio sound server',
+                      'Festival snpeech engine', 'xbacklight']
 end
