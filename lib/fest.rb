@@ -45,7 +45,7 @@ class Fest
   def check_home_theater
     xbmc = `ps -el | grep xbmc | wc -l`.to_i
     vlc = `ps -el | grep vlc | wc -l`.to_i
-    kodi = `ps -el | grep vlc | wc -l`.to_i
+    kodi = `ps -el | grep kodi | wc -l`.to_i
     exit if xbmc > 0 || vlc > 0 || kodi > 0
   end
 
