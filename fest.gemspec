@@ -8,7 +8,8 @@ Gem::Specification.new do |gem|
   gem.summary = 'Ruby wrapper for festival speech engine'
   gem.license = 'MIT'
 
-  gem.add_development_dependency %w(rake rspec)
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependenc 'rspec'
 
   gem.files = `git ls-files`.split("\n")
   gem.require_paths = ['lib']
