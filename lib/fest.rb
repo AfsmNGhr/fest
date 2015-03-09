@@ -9,7 +9,8 @@ require_relative 'fest/conditions'
 class Fest
   include Params
   include Volume
-  attr_writer :params
+  include Conditions
+  attr_accessor :params
 
   def say(string)
     check_conditions

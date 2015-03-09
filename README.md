@@ -34,8 +34,9 @@ require 'fest'
 # => Say "Пример"
 
 # Expanded option
-@fest.say("This is an example", {:language => "cmu_us_slt_arctic_hts"})
-# => Say "This is an example" ...
+@fest.params = {:language => "cmu_us_slt_arctic_hts"}
+@fest.say("This is an example")
+# => Say "This is an example"
 
 # All options
 # params || default value
