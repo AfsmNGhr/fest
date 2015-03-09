@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.license = 'MIT'
 
   gem.add_development_dependency 'rake'
-  gem.add_development_dependenc 'rspec'
+  gem.add_development_dependency 'rspec'
 
   gem.files = `git ls-files`.split("\n")
   gem.require_paths = ['lib']
