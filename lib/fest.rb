@@ -6,7 +6,6 @@ class Fest
     check_conditions
     make_wav(string)
     expect_if_paplay_now
-    check_optimal_volume
     play_wav
   end
 
@@ -15,17 +14,14 @@ class Fest
     @path = @params[:path] || '/tmp'
     @current_volume = `amixer | grep -o '[0-9]*' | sed "5 ! d"`.to_i
     @index = `ls -r #{@path} | grep -o '[0-9]*' | sed "1 ! d"`.to_i
-    @min_volume = @params[:down_volume[0]] || 20
-    @max_volume = @params[:down_volume[1]] || 60
-    @step = @params[:down_volume[2]] || 4
+    @index > 0 ? @index += 1 : @index = 1
+    @min_volume = @params[:volume[0]] || 20
+    @max_volume = @params[:volume[1]] || 60
+    @step = @params[:volume[2]] || 4
   end
 
   def check_optimal_volume
     @volume = @current_volume - @current_volume / 10 * @step
-    optimize_min_and_max_volume
-  end
-
-  def optimize_min_and_max_volume
     @optimize_volume = (
     if @current_volume > @max_volume
       @max_volume
@@ -40,7 +36,6 @@ class Fest
   def check_conditions
     check_light
     check_home_theater
-    check_say_wav
   end
 
   def check_light
@@ -50,22 +45,14 @@ class Fest
   def check_home_theater
     xbmc = `ps -el | grep xbmc | wc -l`.to_i
     vlc = `ps -el | grep vlc | wc -l`.to_i
-    kodi = `ps -el | grep kodi | wc -l`.to_i
+    kodi = `ps -el | grep vlc | wc -l`.to_i
     exit if xbmc > 0 || vlc > 0 || kodi > 0
-  end
-
-  def check_say_wav
-    @index > 0 ? @index += 1 : @index = 1
   end
 
   def make_wav(string)
     system("echo '#{string}' | text2wave -o #{@path}/say_#{@index}.wav \
       -eval '(#{@params[:language] || 'voice_msu_ru_nsh_clunits'})' \
       > /dev/null 2>&1")
-  end
-
-  def change_volume(volume)
-    system("amixer set Master #{volume}% > /dev/null 2>&1")
   end
 
   def expect_if_paplay_now
@@ -88,11 +75,12 @@ class Fest
   end
 
   def play_wav
+    check_optimal_volume
     turn_down_volume
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
     return_current_volume
-    delete_wav
+    system("rm -f #{@path}/say_#{@index}.wav")
   end
 
   def return_current_volume
@@ -104,10 +92,6 @@ class Fest
         break if volume > @current_volume
       end
     end
-  end
-
-  def delete_wav
-    system("rm -f #{@path}/say_#{@index}.wav")
   end
 
   def pluralform(number, array)

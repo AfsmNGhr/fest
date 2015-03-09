@@ -30,20 +30,17 @@ $ gem install fest
 require 'fest'
 
 @fest = Fest.new
-text = "Пример"
-@fest.say(text)
+@fest.say("Пример")
 # => Say "Пример"
 
 # Expanded option
-params = {:language => "cmu_us_slt_arctic_hts"}
-text = "This is an example"
-@fest.say(text, params)
+@fest.say("This is an example", {:language => "cmu_us_slt_arctic_hts"})
 # => Say "This is an example" ...
 
 # All options
 # params || default value
 params[:path] || "/tmp"
-params[:down_volume] || [20,60,4] # [min, max, step]
+params[:volume] || [20,60,4] # [min, max, step]
 params[:backlight] || nil # disable check backlight
 params[:language] || "voice_msu_ru_nsh_clunits"
 
@@ -60,11 +57,6 @@ puts text
 # check @current_volume
 # @path, @index, @min_volume, @max_volume ...
 
-@fest.check_optimal_volume
-# @volume = @current_volume - @down_volume
-
-@fest.optimize_min_and_max_volume(min_volume, max_volume)
-
 @fest.check_conditions
 # @fest.check_say_wav
 # check_light и check_home_theater
@@ -77,17 +69,16 @@ puts text
 
 @fest.make_wav(text)
 
-@fest.change_volume(volume)
-
 @fest.expect_if_paplay_now
 # wait if paplay active ...
 
 @fest.play_wav
+# @fest.check_optimal_volume (optimize min_volume and max_volume)
 # @fest.turn_down_volume (with @step)
 # @volume = @current_volume - @current_volume / 10 * @step
 # play wav ... with @optimize_volume
 # @fest.return_current_volume (with @step)
-# @fest.delete_wav
+# delete_wav
 ```
 
 ## Issues
