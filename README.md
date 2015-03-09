@@ -41,7 +41,7 @@ require 'fest'
 # All options
 # params || default value
 params[:path] || "/tmp"
-params[:volume] || [20,60,4] # [min, max, step]
+params[:volume] || [20, 60, 4] # [min, max, step]
 params[:backlight] || nil # disable check backlight
 params[:language] || "voice_msu_ru_nsh_clunits"
 
