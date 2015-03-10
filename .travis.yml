@@ -5,6 +5,8 @@ rvm:
   - 2.1.3
   - 2.1.4
   - ruby-head
+virtualenv:
+  system_site_packages: true
 before_install:
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
   - sudo apt-get install -qq alsa-utils alsamixer pulseaudio
