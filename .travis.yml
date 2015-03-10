@@ -7,4 +7,5 @@ rvm:
   - ruby-head
 before_install:
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+  - sudo apt-get install -qq alsa-utils alsamixer pulseaudio
 install: bundle install

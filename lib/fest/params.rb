@@ -1,6 +1,6 @@
 # coding: utf-8
 #
-module Params
+module Fest::Params
   def path
     @path = @params[:path] || '/tmp'
   end

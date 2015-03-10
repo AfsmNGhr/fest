@@ -7,9 +7,9 @@ require_relative 'fest/volume'
 require_relative 'fest/conditions'
 #
 class Fest
-  include Params
-  include Volume
-  include Conditions
+  include Fest::Params
+  include Fest::Volume
+  include Fest::Conditions
   attr_accessor :params
 
   def say(string)
