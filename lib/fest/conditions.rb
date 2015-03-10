@@ -1,6 +1,6 @@
 # coding: utf-8
 #
-module Fest::Conditions
+module Conditions
   def check_conditions
     check_light
     check_home_theater

@@ -1,6 +1,6 @@
 # coding: utf-8
 #
-module Fest::Params
+module Params
   def path
     @path = @params[:path] || '/tmp'
   end
@@ -15,15 +15,15 @@ module Fest::Params
   end
 
   def min_volume
-    @min_volume = @params[:volume[0]] || 20
+    @min_volume = @params[:min_volume] || 20
   end
 
   def max_volume
-    @max_volume = @params[:volume[1]] || 60
+    @max_volume = @params[:max_volume] || 60
   end
 
   def step
-    @step = @params[:volume[2]] || 4
+    @step = @params[:step] || 4
   end
 
   def language

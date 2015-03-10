@@ -7,6 +7,10 @@ RSpec.describe Fest do
     @fest.params = {}
   end
 
+  it 'check default params' do
+    expect(@fest.params).to eq({})
+  end
+
   it 'check default path' do
     expect(@fest.path).to eq('/tmp')
   end
