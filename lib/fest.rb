@@ -13,6 +13,7 @@ class Fest
   attr_accessor :params
 
   def say(string)
+    init
     check_conditions
     make_wav(string)
     expect_if_paplay_now
