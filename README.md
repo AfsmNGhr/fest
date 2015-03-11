@@ -57,7 +57,7 @@ puts text
 ## Сustomization
 
 ```.ruby
-@fest.init(params)
+@fest.init
 # check @current_volume
 # @path, @index, @min_volume, @max_volume ...
 
