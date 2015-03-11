@@ -1,3 +1,7 @@
+** 1.2.10 (2015-03-11 Ср)
+- say without params
+- attr_accessor params
+- add specs and modules
 ** 1.1.10 (2015-02-21 Сб)
 - fix expect_if_paplay_now
 - translation

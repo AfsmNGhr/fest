@@ -29,14 +29,4 @@ module Params
   def language
     @language = @params[:language] || 'voice_msu_ru_nsh_clunits'
   end
-
-  def init
-    current_volume
-    min_volume
-    max_volume
-    language
-    index
-    path
-    step
-  end
 end

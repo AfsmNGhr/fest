@@ -10,11 +10,7 @@ class Fest
   include Params
   include Volume
   include Conditions
-  attr_writer :params
-
-  def params
-    @params || {}
-  end
+  attr_accessor :params
 
   def say(string)
     init
@@ -22,6 +18,17 @@ class Fest
     make_wav(string)
     expect_if_paplay_now
     play_wav
+  end
+
+  def init
+    @params ||= {}
+    current_volume
+    min_volume
+    max_volume
+    language
+    index
+    path
+    step
   end
 
   def make_wav(string)
