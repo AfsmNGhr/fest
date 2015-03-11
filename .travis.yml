@@ -8,3 +8,5 @@ rvm:
 before_install:
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
 install: bundle install
+after_success:
+  - coveralls

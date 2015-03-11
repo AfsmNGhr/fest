@@ -1,5 +1,4 @@
-require 'rspec'
-require_relative '../lib/fest'
+require 'spec_helper'
 
 RSpec.describe Fest do
   before(:each) do
