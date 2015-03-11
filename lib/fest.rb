@@ -5,14 +5,16 @@
 require_relative './fest/params'
 require_relative './fest/volume'
 require_relative './fest/conditions'
-require_relative './fest/accessors'
 #
 class Fest
   include Params
   include Volume
   include Conditions
-  include Accessors
-  attr_accessor_with_default :params, {}
+  attr_writer :params
+
+  def params
+    @params || {}
+  end
 
   def say(string)
     init
