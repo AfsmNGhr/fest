@@ -1,8 +1,8 @@
 ## FEST
 
 [![Gem Version](https://badge.fury.io/rb/fest.svg)](http://badge.fury.io/rb/fest)
-[![Coverage Status](https://coveralls.io/repos/AfsmNGhr/fest/badge.svg)](https://coveralls.io/r/AfsmNGhr/fest)
 [![Build Status](https://travis-ci.org/AfsmNGhr/fest.svg)](https://travis-ci.org/AfsmNGhr/fest)
+[![Coverage Status](https://coveralls.io/repos/AfsmNGhr/fest/badge.svg)](https://coveralls.io/r/AfsmNGhr/fest)
 [![License](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/AfsmNGhr/fest)
 
 Ruby wrapper use [Festival](https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29) for speak of the text and scripts ...
