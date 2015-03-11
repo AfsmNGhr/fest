@@ -1,6 +1,7 @@
 ## FEST
 
 [![Gem Version](https://badge.fury.io/rb/fest.svg)](http://badge.fury.io/rb/fest)
+[![Coverage Status](https://coveralls.io/repos/AfsmNGhr/fest/badge.svg)](https://coveralls.io/r/AfsmNGhr/fest)
 [![Build Status](https://travis-ci.org/AfsmNGhr/fest.svg)](https://travis-ci.org/AfsmNGhr/fest)
 [![License](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/AfsmNGhr/fest)
 
