@@ -2,15 +2,17 @@
 # Ruby wrapper for Festival speech engine
 # author Alexsey Ermolaev afay.zangetsu@gmail.com
 
-require_relative 'fest/params'
-require_relative 'fest/volume'
-require_relative 'fest/conditions'
+require_relative './fest/params'
+require_relative './fest/volume'
+require_relative './fest/conditions'
+require_relative './fest/accessors'
 #
 class Fest
   include Params
   include Volume
   include Conditions
-  attr_accessor :params
+  include Accessors
+  attr_accessor_with_default :params, {}
 
   def say(string)
     init

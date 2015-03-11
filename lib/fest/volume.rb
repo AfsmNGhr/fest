@@ -2,7 +2,6 @@
 #
 module Volume
   def check_optimal_volume
-    p @current_volume
     @volume = @current_volume - @current_volume / 10 * @step
   end
 
