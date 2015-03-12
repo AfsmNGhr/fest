@@ -10,7 +10,7 @@ rvm:
   - ruby-head
 before_install:
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
-  - sudo modprobe snd-dummy
+  - sudo /sbin/depmod snd-dummy
   - sudo apt-get update -qq
   - sudo apt-get install -y alsa-utils pulseaudio
 install: bundle install
