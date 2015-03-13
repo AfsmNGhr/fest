@@ -7,23 +7,23 @@ RSpec.describe Fest do
     @fest.init
   end
 
-  it 'check current volume' do
+  it '.current_volume' do
     vol = `amixer | grep -o '[0-9]*' | sed "5 ! d"`.to_i
     expect(@fest.current_volume).to eq(vol)
   end
 
-  it 'chech current inputs' do
+  it '.inputs' do
     inputs = `pactl list sink-inputs | grep № | grep -o '[0-9]*'`.split("\n")
     expect(@fest.inputs).to match_array(inputs)
   end
 
-  it 'check optimal volume background music or video' do
+  it '.check_optimal_volume' do
     vol = @fest.current_volume - @fest.current_volume / 10 * @fest.step
     expect(@fest.check_optimal_volume).to eq(vol)
     expect(@fest.current_volume).to be > vol
   end
 
-  it 'check optimizing volume min and max' do
+  it '.optimize_volume' do
     if @fest.current_volume > @fest.max_volume
       expect(@fest.optimize_volume).to be < @fest.current_volume
     elsif @fest.current_volume < @fest.min_volume
@@ -33,7 +33,7 @@ RSpec.describe Fest do
     end
   end
 
-  it 'check turn down volume background sound' do
+  it '.turn_down_volume' do
     @fest.inputs
     @fest.turn_down_volume(
       @fest.current_volume,
@@ -49,7 +49,7 @@ RSpec.describe Fest do
     expect($?.success?).to be_truthy
   end
 
-  it 'check return current volume on inputs' do
+  it '.return_current_volume' do
     @fest.inputs
     @fest.turn_down_volume(
       @fest.current_volume,

@@ -10,5 +10,9 @@ rescue Bundler::BundlerError => e
 end
 
 require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec) do |task|
+  file_list = FileList['spec/**/*_spec.rb']
+  file_list -= ['spec/fest_spec.rb', 'spec/volume/volume_spec']
+  task.pattern = file_list
+end
 task :default => :spec

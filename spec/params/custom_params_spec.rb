@@ -10,7 +10,7 @@ RSpec.describe Fest do
                     :path => '~/'}
   end
 
-  it 'check custom params' do
+  it '.params' do
     params = {:language => 'cmu_us_slt_arctic_hts',
               :min_volume => 30,
               :max_volume => 70,
@@ -19,23 +19,23 @@ RSpec.describe Fest do
     expect(@fest.params).to eq(params)
   end
 
-  it 'check custom path in params' do
+  it '.path' do
     expect(@fest.path).to eq('~/')
   end
 
-  it 'check custom min volume' do
+  it '.min_volume' do
     expect(@fest.min_volume).to eq(30)
   end
 
-  it 'check custom max volume' do
+  it '.max_volume' do
     expect(@fest.max_volume).to eq(70)
   end
 
-  it 'check custom step' do
+  it '.step' do
     expect(@fest.step).to eq(3)
   end
 
-  it 'check custom language' do
+  it '.language' do
     expect(@fest.language).to eq('cmu_us_slt_arctic_hts')
   end
 end

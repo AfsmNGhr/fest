@@ -7,12 +7,14 @@ RSpec.describe Fest do
     @fest.init
   end
 
-  it 'check say method' do
-    @fest.say('Начинаю тэст+ирова ние')
-    expect($?.success?).to be_truthy
+  context '.say' do
+    it 'check successfull say' do
+      @fest.say('Начинаю тэ+с т+ирова ние')
+      expect($?.success?).to be_truthy
+    end
   end
 
-  context 'make wav method' do
+  context '.make_wav' do
     it 'check successfull make wav' do
       @fest.make_wav('Пример')
       expect($?.success?).to be_truthy
@@ -31,7 +33,7 @@ RSpec.describe Fest do
     end
   end
 
-  context 'delete wav method' do
+  context '.delete_wav' do
     it 'successfull delete wav' do
       @fest.make_wav('Пример')
       @fest.delete_wav
@@ -48,8 +50,8 @@ RSpec.describe Fest do
   end
 
   context 'for pause' do
-    it 'check play wav method' do
-      @fest.make_wav('Вы числ+яю энт роп+ии ю вселенной')
+    it '.play_wav' do
+      @fest.make_wav('Вы числ+яю энт ро+п+ии ю вселенной')
       @fest.play_wav
       expect($?.success?).to be_truthy
     end
