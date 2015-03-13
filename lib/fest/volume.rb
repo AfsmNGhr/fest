@@ -21,24 +21,22 @@ module Volume
     @inputs = `pactl list sink-inputs | grep № | grep -o '[0-9]*'`.split("\n")
   end
 
-  def turn_down_volume
+  def turn_down_volume(volume, break_volume, step)
     @inputs.each do |input|
-      volume = @current_volume
       loop do
         system("pactl set-sink-input-volume #{input} '#{volume * 655}'")
-        volume -= @step
-        break if volume < @volume
+        volume -= step
+        break if volume < break_volume
       end
     end
   end
 
-  def return_current_volume
+  def return_current_volume(volume, break_volume, step)
     @inputs.each do |input|
-      volume = @volume
       loop do
         system("pactl set-sink-input-volume #{input} '#{volume * 655}'")
-        volume += @step
-        break if volume > @current_volume
+        volume += step
+        break if volume > break_volume
       end
     end
   end

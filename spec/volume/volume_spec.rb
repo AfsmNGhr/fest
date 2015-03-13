@@ -32,4 +32,35 @@ RSpec.describe Fest do
       expect(@fest.optimize_volume).to eq(@fest.current_volume)
     end
   end
+
+  it 'check turn down volume background sound' do
+    @fest.inputs
+    @fest.turn_down_volume(
+      @fest.current_volume,
+      @fest.check_optimal_volume,
+      @fest.step
+    )
+    expect($?.success?).to be_truthy
+    @fest.return_current_volume(
+      @fest.check_optimal_volume,
+      @fest.current_volume,
+      @fest.step
+    )
+    expect($?.success?).to be_truthy
+  end
+
+  it 'check return current volume on inputs' do
+    @fest.inputs
+    @fest.turn_down_volume(
+      @fest.current_volume,
+      @fest.check_optimal_volume,
+      @fest.step)
+    expect($?.success?).to be_truthy
+    @fest.return_current_volume(
+      @fest.check_optimal_volume,
+      @fest.current_volume,
+      @fest.step
+    )
+    expect($?.success?).to be_truthy
+  end
 end

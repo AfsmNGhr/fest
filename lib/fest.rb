@@ -47,10 +47,14 @@ class Fest
     check_optimal_volume
     optimize_volume
     inputs
-    turn_down_volume
+    turn_down_volume(@current_volume, @volume, @step)
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
-    return_current_volume
+    return_current_volume(@volume, @current_volume, @step)
+    delete_wav
+  end
+
+  def delete_wav
     system("rm -f #{@path}/say_#{@index}.wav")
   end
 
