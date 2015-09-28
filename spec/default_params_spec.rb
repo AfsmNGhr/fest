@@ -1,9 +1,8 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 
 RSpec.describe Fest do
   before(:each) do
     @fest = Fest.new
-    @fest.init
   end
 
   it '.params' do

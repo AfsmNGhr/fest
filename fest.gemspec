@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'fest'
-  gem.version = '1.2.10'
+  gem.version = '1.2.12'
   gem.authors = 'Alexsey Ermolaev'
   gem.email = 'afay.zangetsu@gmail.com'
   gem.homepage = 'https://github.com/AfsmNGhr/fest'
@@ -8,11 +8,11 @@ Gem::Specification.new do |gem|
   gem.summary = 'Ruby wrapper for festival speech engine'
   gem.license = 'MIT'
 
-  gem.add_development_dependency 'rake', '~> 0'
-  gem.add_development_dependency 'rspec', '3.2.0'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec'
 
   gem.files = `git ls-files`.split("\n")
-  gem.require_paths = ['lib']
+  gem.require_paths = ['lib', 'config']
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
 
   gem.extra_rdoc_files = ['License.org', 'README.md']

@@ -1,5 +1,3 @@
-# coding: utf-8
-#
 module Params
   def path
     @path = @params[:path] || '/tmp'

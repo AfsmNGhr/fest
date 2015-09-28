@@ -1,10 +1,9 @@
 # coding: utf-8
-require_relative 'spec_helper'
+require 'spec_helper'
 
 RSpec.describe Fest do
   before(:each) do
     @fest = Fest.new
-    @fest.init
   end
 
   context '.say' do

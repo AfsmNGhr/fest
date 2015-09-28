@@ -2,33 +2,36 @@
 # Ruby wrapper for Festival speech engine
 # author Alexsey Ermolaev afay.zangetsu@gmail.com
 
-require_relative './fest/params'
+GEM_ROOT = Bundler.rubygems.find_name('fest').first.full_gem_path
 require_relative './fest/volume'
-require_relative './fest/conditions'
-#
+require 'yaml'
+
 class Fest
-  include Params
   include Volume
-  include Conditions
   attr_accessor :params
 
   def say(string)
-    init
     check_conditions
     make_wav(string)
     expect_if_paplay_now
     play_wav
   end
 
-  def init
-    @params ||= {}
-    current_volume
-    min_volume
-    max_volume
-    language
-    index
-    path
-    step
+  def initialize(params = {})
+    params =
+      YAML.load_file("#{GEM_ROOT}/config/default.yml") if params == {}
+    params.each do |key, value|
+      instance_variable_set(
+        "@#{key}",
+        value.is_a?(Array) ? eval(value.join('; ')) : value
+      )
+    end
+  end
+
+  def check_conditions
+    @conditions.values.each do |value|
+      eval(value.join('; '))
+    end
   end
 
   def make_wav(string)
@@ -46,30 +49,17 @@ class Fest
   def play_wav
     check_optimal_volume
     optimize_volume
-    inputs
-    turn_down_volume(@current_volume, @volume, @step)
+    sink_inputs
+    change_volume(@current_volume, @volume, @step)
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
-    return_current_volume(@volume, @current_volume, @step)
+    change_volume(@volume, @current_volume, @step)
     delete_wav
   end
 
   def delete_wav
-    system("rm -f #{@path}/say_#{@index}.wav")
-  end
-
-  def pluralform(number, array)
-    n = number % 100
-    m = n % 10
-
-    if n > 10 && n < 20
-      array[2]
-    elsif m > 1 && m < 5
-      array[1]
-    elsif m == 1
-      array[0]
-    else
-      array[2]
+    if File.exist?("#{@path}/say_#{@index}.wav")
+      File.delete("#{@path}/say_#{@index}.wav")
     end
   end
 end

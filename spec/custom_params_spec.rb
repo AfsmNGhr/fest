@@ -1,21 +1,18 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 
 RSpec.describe Fest do
   before(:each) do
     @fest = Fest.new
-    @fest.params = {:language => 'cmu_us_slt_arctic_hts',
-                    :min_volume => 30,
-                    :max_volume => 70,
-                    :step => 3,
-                    :path => '~/'}
+    @fest.send :include, Params
+    params = { 'language' => 'cmu_us_slt_arctic_hts',
+               'min_volume' => 30,
+               'max_volume' => 70,
+               'step' => 3,
+               'path' => '~/'}
+    @fest.params = params
   end
 
   it '.params' do
-    params = {:language => 'cmu_us_slt_arctic_hts',
-              :min_volume => 30,
-              :max_volume => 70,
-              :step => 3,
-              :path => '~/'}
     expect(@fest.params).to eq(params)
   end
 

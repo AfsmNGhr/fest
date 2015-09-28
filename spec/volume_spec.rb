@@ -1,10 +1,9 @@
 # coding: utf-8
-require_relative '../spec_helper'
+require 'spec_helper'
 
 RSpec.describe Fest do
   before(:each) do
     @fest = Fest.new
-    @fest.init
   end
 
   it '.current_volume' do
@@ -13,8 +12,8 @@ RSpec.describe Fest do
   end
 
   it '.inputs' do
-    inputs = `pactl list sink-inputs | grep № | grep -o '[0-9]*'`.split("\n")
-    expect(@fest.inputs).to match_array(inputs)
+    inputs = `pactl list sink-inputs | grep '№' | grep -o '[0-9]*'`.split("\n")
+    expect(@fest.sink_inputs).to match_array(inputs)
   end
 
   it '.check_optimal_volume' do
@@ -33,30 +32,14 @@ RSpec.describe Fest do
     end
   end
 
-  it '.turn_down_volume' do
-    @fest.inputs
-    @fest.turn_down_volume(
-      @fest.current_volume,
-      @fest.check_optimal_volume,
-      @fest.step
-    )
-    expect($?.success?).to be_truthy
-    @fest.return_current_volume(
-      @fest.check_optimal_volume,
-      @fest.current_volume,
-      @fest.step
-    )
-    expect($?.success?).to be_truthy
-  end
-
-  it '.return_current_volume' do
-    @fest.inputs
-    @fest.turn_down_volume(
+  it '.change_volume' do
+    @fest.sink_inputs
+    @fest.change_volume(
       @fest.current_volume,
       @fest.check_optimal_volume,
       @fest.step)
     expect($?.success?).to be_truthy
-    @fest.return_current_volume(
+    @fest.change_volume(
       @fest.check_optimal_volume,
       @fest.current_volume,
       @fest.step

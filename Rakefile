@@ -13,7 +13,8 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |task|
   file_list = FileList['spec/**/*_spec.rb']
   file_list -= ['spec/fest_spec.rb',
-                'spec/volume/volume_spec.rb']
+                'spec/volume_spec.rb']
   task.pattern = file_list
 end
-task :default => :spec
+
+task default: :spec

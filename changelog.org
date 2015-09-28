@@ -1,4 +1,9 @@
-** 1.2.10 (2015-03-11 Ср)
+** 1.2.12 (2015-28-09 Пн)
+- initialize with params for yaml file
+- check conditions @params['conditions']
+- delete module conditions
+- delete pluraform ...
+** 1.2.11 (2015-03-11 Ср)
 - say without params
 - attr_accessor params
 - add specs and modules

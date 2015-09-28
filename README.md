@@ -34,42 +34,28 @@ require 'fest'
 @fest.say("Пример")
 # => Say "Пример"
 
-# Expanded option
-@fest.params = {:language => "cmu_us_slt_arctic_hts"}
+@fest.params = { 'language' => "cmu_us_slt_arctic_hts"}
 @fest.say("This is an example")
 # => Say "This is an example"
 
 # All options
 # params || default value
-params[:path] || "/tmp"
-params[:min_volume] || 20
-params[:max_volume] || 60
-params[:step] || 4
-params[:backlight] || nil # disable check backlight
-params[:language] || "voice_msu_ru_nsh_clunits"
-
-# Declension
-text = @fest.pluraform(2, %w(Сообщение Сообщения Сообщений))
-puts text
-# => "Сообщения"
-```
+params['path'] || "/tmp"
+params['min_volume'] || 20
+params['max_volume'] || 60
+params['step'] || 4
+params['backlight'] || nil # disable check backlight
+params['language'] || "voice_msu_ru_nsh_clunits"
 
 ## Сustomization
 
 ```.ruby
-@fest.init
+@fest.initialize(params = {})
 # check @current_volume
 # @path, @index, @min_volume, @max_volume ...
 
 @fest.check_conditions
-# @fest.check_say_wav
-# check_light и check_home_theater
-
-@fest.check_light # (with xbacklight)
-# exit if backlight equal 0
-
-@fest.check_home_theater
-# exit if run (vlc, kodi(xbmc))
+# eval config/conditions.yml
 
 @fest.make_wav(text)
 
