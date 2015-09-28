@@ -17,4 +17,4 @@ RSpec::Core::RakeTask.new(:spec) do |task|
   task.pattern = file_list
 end
 
-task default: :spec
+task :default => :spec
