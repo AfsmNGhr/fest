@@ -34,7 +34,7 @@ require 'fest'
 @fest.say("Пример")
 # => Say "Пример"
 
-@fest.params = { 'language' => "cmu_us_slt_arctic_hts"}
+@fest = Fest.new({'language' => "cmu_us_slt_arctic_hts"})
 @fest.say("This is an example")
 # => Say "This is an example"
 
