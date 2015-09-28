@@ -24,7 +24,6 @@ RSpec.describe Fest do
   it '#check_optimal_volume' do
     vol = @current_volume - @current_volume / 10 * @step
     expect(@fest.check_optimal_volume).to eq(vol)
-    expect(@current_volume).to be > vol
   end
 
   it '#optimize_volume' do
