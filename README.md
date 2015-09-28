@@ -49,7 +49,6 @@ params['language'] || "voice_msu_ru_nsh_clunits"
 
 ## Сustomization
 
-```.ruby
 @fest.initialize(params = {})
 # check @current_volume
 # @path, @index, @min_volume, @max_volume ...
