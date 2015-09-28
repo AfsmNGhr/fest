@@ -9,7 +9,6 @@ Gem::Specification.new do |gem|
   gem.license = 'MIT'
 
   gem.add_development_dependency 'rake', '~> 10.4'
-  gem.add_development_dependency 'bundler', '~> 1.10'
   gem.add_development_dependency 'rspec', '~> 3.3'
 
   gem.files = `git ls-files`.split("\n")
