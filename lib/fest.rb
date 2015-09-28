@@ -9,7 +9,6 @@ require 'yaml'
 
 class Fest
   include Volume
-  attr_accessor :params
 
   def say(string)
     check_conditions
