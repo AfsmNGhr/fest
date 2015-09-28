@@ -30,6 +30,8 @@ class Fest
   end
 
   def check_conditions
+    @conditions =
+      YAML.load_file("#{GEM_ROOT}/config/conditions.yml") if @conditions == {}
     @conditions.values.each do |value|
       eval(value.join('; '))
     end

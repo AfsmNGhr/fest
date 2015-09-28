@@ -8,7 +8,7 @@ RSpec.describe Fest do
 
   context '.say' do
     it 'check successfull say' do
-      @fest.say('Начинаю тэ+с т+ирова ние')
+      @fest.say('Начинаю тъэ+с т+ирова ние')
       expect($?.success?).to be_truthy
     end
   end

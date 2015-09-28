@@ -17,4 +17,4 @@ language:
 backlight:
   nil
 conditions:
-  - "YAML.load_file('../config/conditions.yml')"
+  {}
