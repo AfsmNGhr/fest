@@ -2,6 +2,7 @@
 # Ruby wrapper for Festival speech engine
 # author Alexsey Ermolaev afay.zangetsu@gmail.com
 
+require 'bundler'
 GEM_ROOT = Bundler.rubygems.find_name('fest').first.full_gem_path
 require_relative './fest/volume'
 require 'yaml'
