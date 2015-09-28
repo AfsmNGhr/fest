@@ -1,8 +1,9 @@
 ** 1.2.12 (2015-28-09 Пн)
-- initialize with params for yaml file
-- check conditions @params['conditions']
+- initialize with params for yml file
+- check conditions @params['conditions'] or conditions.yml
 - delete module conditions
 - delete pluraform ...
+- delete accessor params ...
 ** 1.2.11 (2015-03-11 Ср)
 - say without params
 - attr_accessor params
