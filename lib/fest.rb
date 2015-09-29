@@ -53,7 +53,7 @@ class Fest
     optimize_volume
     sink_inputs
     change_volume(@current_volume, @volume, @step)
-    system("paplay #{@path}/say_#{@index}.wav \
+    system("paplay #{@path}/say_#{@index}.wav --no-remix --no-remap \
       --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
     change_volume(@volume, @current_volume, @step)
     delete_wav

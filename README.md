@@ -34,7 +34,7 @@ require 'fest'
 @fest.say("Пример")
 # => Say "Пример"
 
-@fest = Fest.new({'language' => "cmu_us_slt_arctic_hts"})
+@fest = Fest.new(YAML.load_file('../config/custom.yml'))
 @fest.say("This is an example")
 # => Say "This is an example"
 

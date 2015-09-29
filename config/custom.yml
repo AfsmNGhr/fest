@@ -1,0 +1,20 @@
+---
+path:
+  '/tmp'
+current_volume:
+  - "`amixer | grep -o '[0-9]*' | sed '5 ! d' `.to_i"
+index:
+  - "index = `ls -r #{@path} | grep -o '[0-9]*' | sed '1 ! d'`.to_i"
+  - "index > 0 ? index += 1 : index = 1"
+min_volume:
+  20
+max_volume:
+  60
+step:
+  4
+language:
+  'cmu_us_slt_arctic_hts'
+backlight:
+  nil
+conditions:
+  {}

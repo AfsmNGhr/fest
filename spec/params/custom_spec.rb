@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe Fest do
   describe '#initialize' do
-    params = YAML.load_file("#{GEM_ROOT}/config/default.yml")
+    params = YAML.load_file("#{GEM_ROOT}/config/custom.yml")
     let(:loader) { described_class.new(params) }
 
     params.each do |key, value|
