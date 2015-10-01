@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'fest'
-  gem.version = '1.3.10'
+  gem.version = '1.3.11'
   gem.authors = 'Alexsey Ermolaev'
   gem.email = 'afay.zangetsu@gmail.com'
   gem.homepage = 'https://github.com/AfsmNGhr/fest'

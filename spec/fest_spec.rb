@@ -11,7 +11,7 @@ RSpec.describe Fest do
 
   context '#say' do
     it 'check successfull say' do
-      @fest.say('Начинаю тъэ+с т+ирова ние')
+      @fest.say('Произвожу проверку функ циона+ла')
       expect($?.success?).to be_truthy
     end
   end

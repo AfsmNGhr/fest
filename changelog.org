@@ -1,3 +1,5 @@
+** Чт 01 окт 2015 18:40:50
+- unless if string nil or empty?
 ** 1.3.10 (2015-28-09 Пн)
 - initialize with params for yml file
 - check conditions @params['conditions'] or conditions.yml
