@@ -15,6 +15,6 @@ step:
 language:
   'voice_msu_ru_nsh_clunits'
 backlight:
-  nil
+  'nil'
 conditions:
   {}

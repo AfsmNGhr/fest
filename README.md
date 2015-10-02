@@ -12,7 +12,6 @@ Ruby wrapper use [Festival](https://wiki.archlinux.org/index.php/Festival_%28%D0
 - *nix* or OS X ...
 - [Festival](https://wiki.archlinux.org/index.php/Festival_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29) and necessary languages ...
 - [Pulseaudio](https://wiki.archlinux.org/index.php/PulseAudio_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29)
-- xbacklight ([backlight](https://wiki.archlinux.org/index.php/Backlight_%28%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%29))
 
 ## Install
 

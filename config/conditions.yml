@@ -1,7 +1,8 @@
 ---
 light:
-  - "exit if @backlight.nil? && `xbacklight`.to_i == 0"
+  - "brightness = `cat /sys/class/backlight/intel_backlight/brightness`.to_i"
+  - "exit if @backlight == 'nil' && brightness == 0"
 players:
-  - "['xbmc', 'kodi', 'vlc'].each do |player|"
+  - "%w(xbmc kodi vlc).each do |player|"
   - "exit if `ps -el | grep '#{player}' | wc -l`.to_i > 0"
   - "end"

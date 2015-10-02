@@ -15,6 +15,6 @@ step:
 language:
   'cmu_us_slt_arctic_hts'
 backlight:
-  nil
+  'nil'
 conditions:
   {}
