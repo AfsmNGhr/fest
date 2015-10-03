@@ -7,7 +7,7 @@ RSpec.describe Fest do
       @fest = Fest.new
       params = YAML.load_file("#{GEM_ROOT}/config/default.yml")
       @step = params['step']
-      @current_volume = eval(params['current_volume'].join('; '))
+      @common_volume = eval(params['common_volume'].join('; '))
       @max_volume = params['max_volume']
       @min_volume = params['min_volume']
     end
@@ -16,9 +16,9 @@ RSpec.describe Fest do
       expect(@fest.class.included_modules.include?(Volume)).to be_truthy
     end
 
-    it 'current volume eq volume?' do
+    it 'common volume eq volume?' do
       vol = `amixer | grep -o '[0-9]*' | sed "5 ! d"`.to_i
-      expect(@current_volume).to eq(vol)
+      expect(@common_volume).to eq(vol)
     end
 
     it '#inputs' do
@@ -33,12 +33,12 @@ RSpec.describe Fest do
     end
 
     it '#optimize_volume' do
-      if @current_volume > @max_volume
-        expect(@fest.optimize_volume).to be < @current_volume
-      elsif @current_volume < @min_volume
-        expect(@fest.optimize_volume).to be > @current_volume
+      if @common_volume > @max_volume
+        expect(@fest.optimize_volume).to be < @common_volume
+      elsif @common_volume < @min_volume
+        expect(@fest.optimize_volume).to be > @common_volume
       else
-        expect(@fest.optimize_volume).to eq(@current_volume)
+        expect(@fest.optimize_volume).to eq(@common_volume)
       end
     end
 

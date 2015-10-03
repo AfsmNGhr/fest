@@ -1,33 +1,40 @@
 # coding: utf-8
-#
 module Volume
-  def check_optimal_volume
-    @volume = @current_volume - @current_volume / 10 * @step
+  def current_volumes_on_inputs
+    info = `pactl list sink-inputs`
+    inputs = info.scan(/\A#|№(\d+)/).flatten
+    volumes = info.scan(/\W+:\s\w+\W+\w+:\s\d+\s\/\s+(\d+)%/).flatten
+    @current_volumes = inputs.zip(volumes.map(&:to_i)).to_h
+  end
+
+  def volumes_for_inputs
+    @volumes = {}
+    @current_volumes.each do |input, volume|
+      @volumes.merge!({ input => (volume - volume / 10 * @step) })
+    end
+    @volumes
   end
 
   def optimize_volume
     @optimize_volume = (
-    if @current_volume > @max_volume
+    if @common_volume > @max_volume
       @max_volume
-    elsif @current_volume < @min_volume
+    elsif @common_volume < @min_volume
       @min_volume
     else
-      @current_volume
+      @common_volume
     end
     )
   end
 
-  def sink_inputs
-    @inputs = `pactl list sink-inputs | grep '№' | grep -o '[0-9]*'`.split("\n")
-  end
-
-  def change_volume(volume, break_volume, step)
-    change = volume > break_volume ? 'down' : 'up'
-    @inputs.each do |input|
+  def change_volumes(volumes, break_volumes, step)
+    volumes.each do |input, volume|
+      change = volume > break_volumes[input] ? 'down' : 'up'
       loop do
         system("pactl set-sink-input-volume #{input} '#{volume * 655}'")
         change == 'up' ? volume += step : volume -= step
-        break if change == 'up' ? volume > break_volume : volume < break_volume
+        break if change == 'up' ? volume > break_volumes[input] :
+                   volume < break_volumes[input]
       end
     end
   end

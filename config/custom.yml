@@ -1,7 +1,7 @@
 ---
 path:
   '/tmp'
-current_volume:
+common_volume:
   - "`amixer | grep -o '[0-9]*' | sed '5 ! d' `.to_i"
 index:
   - "index = `ls -r #{@path} | grep -o '[0-9]*' | sed '1 ! d'`.to_i"

@@ -14,8 +14,8 @@ class Fest
     unless string.nil? || string.empty?
       check_conditions
       make_wav(string)
-      expect_if_paplay_now
       play_wav
+      delete_wav
     end
   end
 
@@ -51,14 +51,14 @@ class Fest
   end
 
   def play_wav
-    check_optimal_volume
+    expect_if_paplay_now
+    current_volumes_on_inputs
+    volumes_for_inputs
     optimize_volume
-    sink_inputs
-    change_volume(@current_volume, @volume, @step)
+    change_volumes(@current_volumes, @volumes, @step)
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
-    change_volume(@volume, @current_volume, @step)
-    delete_wav
+    change_volumes(@volumes, @current_volumes, @step)
   end
 
   def delete_wav
