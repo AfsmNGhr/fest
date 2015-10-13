@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
 
   gem.extra_rdoc_files = ['License.org', 'README.md']
-  gem.requirements = ['*nix* or OS X', 'Pulseaudio sound server',
-                      'Festival snpeech engine', 'xbacklight']
+  gem.requirements = ['*nix* or OS X (pgrep tools)',
+                      'Pulseaudio sound server',
+                      'Festival speech engine']
 end
