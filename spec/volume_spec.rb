@@ -21,15 +21,21 @@ RSpec.describe Fest do
       expect(@common_volume).to eq(vol)
     end
 
-    it '#inputs' do
-      inputs =
-        `pactl list sink-inputs | grep '№' | grep -o '[0-9]*'`.split("\n")
-      expect(@fest.sink_inputs).to match_array(inputs)
+    it '#current_volumes_on_inputs' do
+      info = `pactl list sink-inputs`
+      inputs = info.scan(/\A#|№(\d+)/).flatten
+      volumes = info.scan(/\W+:\s\w+\W+\w+:\s\d+\s\/\s+(\d+)%/).flatten
+      current_volumes = inputs.zip(volumes.map(&:to_i)).to_h
+      expect(@fest.current_volumes_on_inputs).to eq(current_volumes)
     end
 
-    it '#check_optimal_volume' do
-      vol = @current_volume - @current_volume / 10 * @step
-      expect(@fest.check_optimal_volume).to eq(vol)
+    it '#volumes_for_inputs' do
+      current_volumes = @fest.current_volumes_on_inputs
+      volumes = {}
+      current_volumes.each do |input, volume|
+        volumes.merge!({ input => (volume - volume / 10 * @step) })
+      end
+      expect(@fest.volumes_for_inputs).to eq(volumes)
     end
 
     it '#optimize_volume' do
@@ -42,30 +48,33 @@ RSpec.describe Fest do
       end
     end
 
-    it '#change_volume down' do
-      @fest.sink_inputs
-      @fest.change_volume(
-        @current_volume,
-        @fest.check_optimal_volume,
-        @step
-      )
+    it '#change_volumes down' do
+      @fest.change_volumes(
+        @fest.current_volumes_on_inputs, @fest.volumes_for_inputs, @step)
 
-      current_volume = `amixer | grep -o '[0-9]*' | sed "5 ! d"`.to_i
-      vol = current_volume - current_volume / 10 * @step
-      expect(@fest.check_optimal_volume).to eq(vol)
+      info = `pactl list sink-inputs`
+      inputs = info.scan(/\A#|№(\d+)/).flatten
+      volumes = info.scan(/\W+:\s\w+\W+\w+:\s\d+\s\/\s+(\d+)%/).flatten
+      current_volumes = inputs.zip(volumes.map(&:to_i)).to_h
+
+      @fest.volumes_for_inputs.each do |input, volume|
+        expect(volume).to eq(current_volumes[input])
+      end
     end
 
-    it '#change_volume up' do
-      @fest.sink_inputs
-      @fest.change_volume(
-        @fest.check_optimal_volume,
-        @current_volume,
-        @step
-      )
+    it '#change_volumes up' do
+      @fest.current_volumes_on_inputs
+      @fest.change_volumes(
+        @fest.volumes_for_inputs, @fest.current_volumes_on_inputs, @step)
 
-      current_volume = `amixer | grep -o '[0-9]*' | sed "5 ! d"`.to_i
-      vol = `amixer | grep -o '[0-9]*' | sed "5 ! d"`.to_i
-      expect(current_volume).to eq(vol)
+      info = `pactl list sink-inputs`
+      inputs = info.scan(/\A#|№(\d+)/).flatten
+      volumes = info.scan(/\W+:\s\w+\W+\w+:\s\d+\s\/\s+(\d+)%/).flatten
+      current_volumes = inputs.zip(volumes.map(&:to_i)).to_h
+
+      @fest.current_volumes_on_inputs.each do |input, volume|
+        expect(volume).to eq(current_volumes[input])
+      end
     end
   end
 end
