@@ -20,8 +20,7 @@ class Fest
   end
 
   def initialize(params = {})
-    params =
-      YAML.load_file("#{GEM_ROOT}/config/default.yml") if params == {}
+    params = YAML.load_file("#{GEM_ROOT}/config/default.yml").merge(params)
     params.each do |key, value|
       instance_variable_set(
         "@#{key}",
@@ -45,7 +44,7 @@ class Fest
 
   def expect_if_paplay_now
     loop do
-      break if `ps -el | grep paplay | wc -l`.to_i == 0
+      break if `pgrep -lfc 'paplay'`.to_i == 0
       sleep 1
     end
   end
