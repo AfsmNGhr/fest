@@ -18,6 +18,8 @@ flash:
   - "    end"
   - "  end"
   - "end"
+skype:
+  - "exit unless `pactl list sink-inputs | grep 'phone'`.empty?"
 players:
   - "%w(xbmc kodi vlc).each do |player|"
   - "  exit if `pgrep -lfc '#{player}'`.to_i > 0"
