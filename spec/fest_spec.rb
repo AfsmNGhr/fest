@@ -56,6 +56,8 @@ RSpec.describe Fest do
       @fest.make_wav('Вы числ+яю энт ро+п+ии ю вселенной')
       @fest.play_wav
       expect($?.success?).to be_truthy
+      @fest.delete_wav
+      expect($?.success?).to be_truthy
     end
   end
 end

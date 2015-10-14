@@ -3,13 +3,15 @@ require 'spec_helper'
 
 RSpec.describe Fest do
   describe '::Volume' do
-    before(:each) do
+    before(:all) do
       @fest = Fest.new
       params = YAML.load_file("#{GEM_ROOT}/config/default.yml")
       @step = params['step']
       @common_volume = eval(params['common_volume'].join('; '))
       @max_volume = params['max_volume']
       @min_volume = params['min_volume']
+      @current_volumes = @fest.current_volumes_on_inputs
+      @volumes = @fest.volumes_for_inputs
     end
 
     it '.include? Volume' do
@@ -49,30 +51,27 @@ RSpec.describe Fest do
     end
 
     it '#change_volumes down' do
-      @fest.change_volumes(
-        @fest.current_volumes_on_inputs, @fest.volumes_for_inputs, @step)
+      @fest.change_volumes(@current_volumes, @volumes, @step)
 
       info = `pactl list sink-inputs`
       inputs = info.scan(/\A#|№(\d+)/).flatten
       volumes = info.scan(/\W+:\s\w+\W+\w+:\s\d+\s\/\s+(\d+)%/).flatten
       current_volumes = inputs.zip(volumes.map(&:to_i)).to_h
 
-      @fest.volumes_for_inputs.each do |input, volume|
+      @volumes.each do |input, volume|
         expect(volume).to eq(current_volumes[input])
       end
     end
 
     it '#change_volumes up' do
-      @fest.current_volumes_on_inputs
-      @fest.change_volumes(
-        @fest.volumes_for_inputs, @fest.current_volumes_on_inputs, @step)
+      @fest.change_volumes(@volumes, @current_volumes, @step)
 
       info = `pactl list sink-inputs`
       inputs = info.scan(/\A#|№(\d+)/).flatten
       volumes = info.scan(/\W+:\s\w+\W+\w+:\s\d+\s\/\s+(\d+)%/).flatten
       current_volumes = inputs.zip(volumes.map(&:to_i)).to_h
 
-      @fest.current_volumes_on_inputs.each do |input, volume|
+      @current_volumes.each do |input, volume|
         expect(volume).to eq(current_volumes[input])
       end
     end
