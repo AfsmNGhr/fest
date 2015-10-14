@@ -16,15 +16,18 @@ module Volume
   end
 
   def optimize_volume
-    @optimize_volume = (
-    if @common_volume > @max_volume
-      @max_volume
-    elsif @common_volume < @min_volume
-      @min_volume
+    case @flat_volumes
+    when 'yes'
+      if @common_volume > @max_volume
+        @max_volume
+      elsif @common_volume < @min_volume
+        @min_volume
+      else
+        @common_volume
+      end
     else
-      @common_volume
+      100
     end
-    )
   end
 
   def change_volumes(volumes, break_volumes, step)

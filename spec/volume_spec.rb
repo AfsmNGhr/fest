@@ -6,6 +6,7 @@ RSpec.describe Fest do
     before(:all) do
       @fest = Fest.new
       params = YAML.load_file("#{GEM_ROOT}/config/default.yml")
+      @flat_volumes = params['flat_volumes']
       @step = params['step']
       @common_volume = eval(params['common_volume'].join('; '))
       @max_volume = params['max_volume']
@@ -41,12 +42,17 @@ RSpec.describe Fest do
     end
 
     it '#optimize_volume' do
-      if @common_volume > @max_volume
-        expect(@fest.optimize_volume).to be < @common_volume
-      elsif @common_volume < @min_volume
-        expect(@fest.optimize_volume).to be > @common_volume
+      case @flat_volumes
+      when 'yes'
+        if @common_volume > @max_volume
+          expect(@fest.optimize_volume).to be < @common_volume
+        elsif @common_volume < @min_volume
+          expect(@fest.optimize_volume).to be > @common_volume
+        else
+          expect(@fest.optimize_volume).to eq(@common_volume)
+        end
       else
-        expect(@fest.optimize_volume).to eq(@common_volume)
+        expect(@fest.optimize_volume).to eq(100)
       end
     end
 

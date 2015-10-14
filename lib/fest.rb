@@ -53,10 +53,9 @@ class Fest
     expect_if_paplay_now
     current_volumes_on_inputs
     volumes_for_inputs
-    optimize_volume
     change_volumes(@current_volumes, @volumes, @step)
     system("paplay #{@path}/say_#{@index}.wav \
-      --volume='#{@optimize_volume * 655}' > /dev/null 2>&1")
+      --volume='#{optimize_volume * 655}' > /dev/null 2>&1")
     change_volumes(@volumes, @current_volumes, @step)
   end
 

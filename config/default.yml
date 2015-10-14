@@ -1,6 +1,8 @@
 ---
 path:
   '/tmp'
+flat_volumes:
+  'no'
 common_volume:
   - "`amixer | grep -o '[0-9]*' | sed '5 ! d' `.to_i"
 index:

@@ -30,8 +30,7 @@ $ gem install fest
 require 'fest'
 
 @fest = Fest.new
-@fest.say("Пример")
-# => Say "Пример"
+@fest.say("Пример") # => Say "Пример"
 
 @fest = Fest.new(YAML.load_file('../config/custom.yml'))
 @fest.say("This is an example")
@@ -39,21 +38,23 @@ require 'fest'
 
 # All options
 # params || default value
-params['path'] || "/tmp"
+params['path'] || '/tmp'
+params['flat_volumes'] || 'no' # need pulseaudio flat-volumes = no
 params['min_volume'] || 20
 params['max_volume'] || 60
 params['step'] || 4
 params['backlight'] || nil # disable check backlight
-params['language'] || "voice_msu_ru_nsh_clunits"
+params['language'] || 'voice_msu_ru_nsh_clunits'
+params['conditions'] || {} # eval config/conditions.yml
 
 ## Сustomization
 
 @fest.initialize(params = {})
-# check @current_volume
+# check @common_volume
 # @path, @index, @min_volume, @max_volume ...
 
 @fest.check_conditions
-# eval config/conditions.yml
+# eval config/conditions.yml if default conditions
 
 @fest.make_wav(text)
 
@@ -61,11 +62,7 @@ params['language'] || "voice_msu_ru_nsh_clunits"
 # wait if paplay active ...
 
 @fest.play_wav
-# @fest.check_optimal_volume (optimize min_volume and max_volume)
-# @fest.turn_down_volume (with @step)
-# @volume = @current_volume - @current_volume / 10 * @step
 # play wav ... with @optimize_volume
-# @fest.return_current_volume (with @step)
 # delete_wav
 ```
 
@@ -77,4 +74,12 @@ params['language'] || "voice_msu_ru_nsh_clunits"
 
 vlc.run --play-and-exit $*
 amixer set Master 30% > /dev/null 2>&1
+```
+
+or
+
+```.js
+; pulseaudio config
+
+flat-volumes = no ; yes
 ```
