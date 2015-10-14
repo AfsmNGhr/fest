@@ -26,7 +26,13 @@ module Volume
         @common_volume
       end
     else
-      100
+      if @common_volume > @max_volume
+        @max_volume
+      elsif @common_volume < @min_volume
+        @min_volume
+      else
+        100
+      end
     end
   end
 

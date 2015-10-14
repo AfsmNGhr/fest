@@ -52,7 +52,13 @@ RSpec.describe Fest do
           expect(@fest.optimize_volume).to eq(@common_volume)
         end
       else
-        expect(@fest.optimize_volume).to eq(100)
+        if @common_volume > @max_volume
+          expect(@fest.optimize_volume).to be < @common_volume
+        elsif @common_volume < @min_volume
+          expect(@fest.optimize_volume).to be > @common_volume
+        else
+          expect(@fest.optimize_volume).to eq(100)
+        end
       end
     end
 
