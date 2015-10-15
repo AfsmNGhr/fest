@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'fest'
-  gem.version = '1.4.14'
+  gem.version = '1.4.15'
   gem.authors = 'Alexsey Ermolaev'
   gem.email = 'afay.zangetsu@gmail.com'
   gem.homepage = 'https://github.com/AfsmNGhr/fest'
@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
 
   gem.extra_rdoc_files = ['License.org', 'README.md']
-  gem.requirements = ['*nix* or OS X (pgrep tools)',
+  gem.requirements = ['*nix* or OS X (pgrep, amixer)',
                       'Pulseaudio sound server',
                       'Festival speech engine']
 end

@@ -18,21 +18,19 @@ module Volume
   def optimize_volume
     case @flat_volumes
     when 'yes'
-      if @common_volume > @max_volume
-        @max_volume
-      elsif @common_volume < @min_volume
-        @min_volume
-      else
-        @common_volume
-      end
+      optimize_common_volume
     else
-      if @common_volume > @max_volume
-        @max_volume
-      elsif @common_volume < @min_volume
-        @min_volume
-      else
-        100
-      end
+      100
+    end
+  end
+
+  def optimize_common_volume
+    if @common_volume > @max_volume
+      @max_volume
+    elsif @common_volume < @min_volume
+      @min_volume
+    else
+      @common_volume
     end
   end
 

@@ -9,7 +9,7 @@ index:
   - "index = `ls -r #{@path} | grep -o '[0-9]*' | sed '1 ! d'`.to_i"
   - "index > 0 ? index += 1 : index = 1"
 min_volume:
-  20
+  30
 max_volume:
   60
 step:

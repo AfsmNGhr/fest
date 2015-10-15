@@ -54,9 +54,20 @@ class Fest
     current_volumes_on_inputs
     volumes_for_inputs
     change_volumes(@current_volumes, @volumes, @step)
+    paplay_wav
+    change_volumes(@volumes, @current_volumes, @step)
+  end
+
+  def paplay_wav
+    change_common_volume(optimize_common_volume)
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{optimize_volume * 655}' > /dev/null 2>&1")
-    change_volumes(@volumes, @current_volumes, @step)
+    change_common_volume(@common_volume)
+  end
+
+  def change_common_volume(volume)
+    system("amixer set Master '#{volume}%' \
+      > /dev/null 2>&1") if @flat_volumes == 'no'
   end
 
   def delete_wav
