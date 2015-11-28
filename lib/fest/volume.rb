@@ -34,6 +34,11 @@ module Volume
     end
   end
 
+  def change_common_volume(volume)
+    system("amixer set Master '#{volume}%' \
+      > /dev/null 2>&1") if @flat_volumes == 'no'
+  end
+
   def change_volumes(volumes, break_volumes, step)
     volumes.each do |input, volume|
       change = volume > break_volumes[input] ? 'down' : 'up'

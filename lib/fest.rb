@@ -44,7 +44,7 @@ class Fest
 
   def expect_if_paplay_now
     loop do
-      break if `pgrep -lfc 'paplay'`.to_i == 0
+      break if `ps -el | grep paplay | wc -l`.to_i == 0
       sleep 1
     end
   end
@@ -63,11 +63,6 @@ class Fest
     system("paplay #{@path}/say_#{@index}.wav \
       --volume='#{optimize_volume * 655}' > /dev/null 2>&1")
     change_common_volume(@common_volume)
-  end
-
-  def change_common_volume(volume)
-    system("amixer set Master '#{volume}%' \
-      > /dev/null 2>&1") if @flat_volumes == 'no'
   end
 
   def delete_wav
