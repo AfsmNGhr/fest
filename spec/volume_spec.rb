@@ -8,7 +8,7 @@ RSpec.describe Fest do
       params = YAML.load_file("#{GEM_ROOT}/config/default.yml")
       @flat_volumes = params['flat_volumes']
       @step = params['step']
-      @common_volume = eval(params['common_volume'].join('; '))
+      @common_volume = instance_eval(params['common_volume'].join('; '))
       @max_volume = params['max_volume']
       @min_volume = params['min_volume']
       @current_volumes = @fest.current_volumes_on_inputs

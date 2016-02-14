@@ -2,11 +2,12 @@
 # Ruby wrapper for Festival speech engine
 # author Alexsey Ermolaev afay.zangetsu@gmail.com
 
-require 'bundler'
-GEM_ROOT = Bundler.rubygems.find_name('fest').first.full_gem_path
-require_relative './fest/volume'
 require 'yaml'
+require 'bundler'
+require_relative './fest/volume'
 
+GEM_ROOT = Bundler.rubygems.find_name('fest').first.full_gem_path
+#
 class Fest
   include Volume
 
@@ -24,7 +25,7 @@ class Fest
     params.each do |key, value|
       instance_variable_set(
         "@#{key}",
-        value.is_a?(Array) ? eval(value.join('; ')) : value
+        value.is_a?(Array) ? instance_eval(value.join('; ')) : value
       )
     end
   end
@@ -33,7 +34,7 @@ class Fest
     @conditions =
       YAML.load_file("#{GEM_ROOT}/config/conditions.yml") if @conditions == {}
     @conditions.values.each do |value|
-      eval(value.join('; '))
+      instance_eval(value.join('; '))
     end
   end
 
@@ -43,10 +44,7 @@ class Fest
   end
 
   def expect_if_paplay_now
-    loop do
-      break if `ps -el | grep paplay | wc -l`.to_i == 0
-      sleep 1
-    end
+    loop { break `ps -el | grep paplay | wc -l`.to_i == 0 ? sleep(1) : '' }
   end
 
   def play_wav
@@ -66,8 +64,7 @@ class Fest
   end
 
   def delete_wav
-    if File.exist?("#{@path}/say_#{@index}.wav")
-      File.delete("#{@path}/say_#{@index}.wav")
-    end
+    File.delete("#{@path}/say_#{@index}.wav") if
+      File.exist?("#{@path}/say_#{@index}.wav")
   end
 end
